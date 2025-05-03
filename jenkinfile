@@ -32,16 +32,19 @@ pipeline {
                 }
             }
         }
-<<<<<<< HEAD
-    }
+        stage('Deploy to Minikube') {
+            steps {
+                script {
+                    // Set the Minikube environment so Jenkins can communicate with the Minikube Docker daemon
+                    sh 'eval $(minikube -p minikube docker-env)'
 
-    post {
-        cleanup {
-            sh 'docker logout'
+                    // Apply the Kubernetes manifests to deploy the image in Minikube
+                    sh "kubectl apply -f deployment.yaml"
+                    sh "kubectl apply -f service.yaml"
+                    sh "kubectl apply -f ingress.yaml"
+                }
+            }
         }
     }
 }
-=======
 }
-}
->>>>>>> c7b20513804c2c8413d2a6823c4a20e3bafd3626
