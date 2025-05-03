@@ -35,12 +35,5 @@ pipeline {
                 }
             }
         }
-        post {
-        cleanup {
-            // Logout from Docker Hub after the process
-            sh 'docker logout'
-        }
-
-    }
 }
 }
